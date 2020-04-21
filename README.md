@@ -1,5 +1,5 @@
-## Object Oriented Programming (Labs)
-***Description:*** `This repository contains labs on the subject of Object Oriented Programming.`
+# Object Oriented Programming (Labs)
+***Description:*** `Labs for object-oriented programming.`
 
 ***Programming language:*** `С#`
 
