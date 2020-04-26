@@ -1,5 +1,5 @@
 # Object Oriented Programming (Labs)
-***Description:*** `Labs for object-oriented programming.`
+***Description:*** `Labs on the subject of object-oriented programming.`
 
 ***Programming language:*** `С#`
 
