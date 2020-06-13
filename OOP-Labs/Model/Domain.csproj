@@ -7,8 +7,8 @@
     <ProjectGuid>{0C4C97FF-69FF-4CE1-B071-EADBB6A298C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Model</RootNamespace>
-    <AssemblyName>Model</AssemblyName>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,14 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cabinet\Cabinet.cs" />
-    <Compile Include="Course.cs" />
-    <Compile Include="Cabinet\Laboratory.cs" />
-    <Compile Include="Cabinet\Lecture.cs" />
-    <Compile Include="Person\Person.cs" />
+    <Compile Include="Helpers\ModelHelper.cs" />
+    <Compile Include="Services\ModelService.cs" />
+    <Compile Include="Model\Alcoholic\Alcoholic.cs" />
+    <Compile Include="Model\Alcoholic\Cognac.cs" />
+    <Compile Include="Model\Alcoholic\Wine.cs" />
+    <Compile Include="Model\Bottle.cs" />
+    <Compile Include="Model\Drink.cs" />
+    <Compile Include="Model\NonAlcoholic\Juice.cs" />
+    <Compile Include="Model\NonAlcoholic\MineralWater.cs" />
+    <Compile Include="Model\NonAlcoholic\NonAlcoholic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Person\Student.cs" />
-    <Compile Include="Person\Teacher.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
