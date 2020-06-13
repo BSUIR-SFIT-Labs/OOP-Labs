@@ -7,7 +7,9 @@
 
 ### UML diagram:
 
-![UML diagram](https://github.com/MrKonstantinSh/OOP-Labs/blob/master/Images/UML-diagram.png)
+<p align="center">
+  <img src="Images/UML-diagram.png" alt="Logo" width="700" height="auto" />
+</p>
 
 ---
 
