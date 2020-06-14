@@ -4,6 +4,7 @@ using Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -53,7 +54,7 @@ namespace UI
         private void btnDelete_Click(object sender, EventArgs e)
         {
             _modelService.Drinks.Remove(_modelService.Drinks.FirstOrDefault(drink =>
-                ((Drink)drink).Name == lbListOfDrinks.SelectedItem?.ToString()));
+                drink.Name == lbListOfDrinks.SelectedItem?.ToString()));
 
             SetDrinksToListOfDrinks();
             SetDrinkInfo();
@@ -68,6 +69,73 @@ namespace UI
         {
             SetDrinksToListOfDrinks();
             SetDrinkInfo();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            openFileDialog.Filter = string.Join("|", _modelService.Filters.Select(f => f.Filter));
+
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (var fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    try
+                    {
+                        _modelService.AddDrinks(_modelService
+                            .Filters[openFileDialog.FilterIndex - 1]
+                            .Serializator
+                            .Deserialize<List<Drink>>(fileStream));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    _modelService.LastFilter = _modelService.Filters[openFileDialog.FilterIndex - 1];
+                    _modelService.LastFile = openFileDialog.FileName;
+                }
+
+                SetDrinksToListOfDrinks();
+                SetDrinkInfo();
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.Filter = string.Join("|", _modelService.Filters.Select(f => f.Filter));
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                _modelService.LastFile = saveFileDialog.FileName;
+                _modelService.LastFilter = _modelService.Filters[saveFileDialog.FilterIndex - 1];
+                saveToolStripMenuItem_Click(null, null);
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_modelService.LastFile == null || _modelService.LastFilter == null)
+            {
+                saveAsToolStripMenuItem_Click(null, null);
+            }
+            else
+            {
+                using (var fileStream = new FileStream(_modelService.LastFile, FileMode.Create, FileAccess.Write))
+                {
+                    try
+                    {
+                        _modelService.LastFilter.Serializator.Serialize(fileStream, _modelService.Drinks);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void InitializeTypesOfDrink()

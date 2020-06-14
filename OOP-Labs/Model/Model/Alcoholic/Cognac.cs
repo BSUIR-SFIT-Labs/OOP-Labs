@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Model.Alcoholic
 {
+    [Serializable]
     public class Cognac : Alcoholic
     {
         public string Class { get; set; }

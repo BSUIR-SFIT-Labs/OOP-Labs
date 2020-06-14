@@ -37,12 +37,20 @@
             this.lblDrinkInfo = new System.Windows.Forms.Label();
             this.lbListOfDrinks = new System.Windows.Forms.ListBox();
             this.lbDrinkInfo = new System.Windows.Forms.ListBox();
+            this.menu = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTypeOfDrink
             // 
             this.lblTypeOfDrink.AutoSize = true;
-            this.lblTypeOfDrink.Location = new System.Drawing.Point(12, 9);
+            this.lblTypeOfDrink.Location = new System.Drawing.Point(12, 28);
             this.lblTypeOfDrink.Name = "lblTypeOfDrink";
             this.lblTypeOfDrink.Size = new System.Drawing.Size(72, 13);
             this.lblTypeOfDrink.TabIndex = 1;
@@ -51,7 +59,7 @@
             // cbTypeOfDrink
             // 
             this.cbTypeOfDrink.FormattingEnabled = true;
-            this.cbTypeOfDrink.Location = new System.Drawing.Point(12, 25);
+            this.cbTypeOfDrink.Location = new System.Drawing.Point(12, 44);
             this.cbTypeOfDrink.Name = "cbTypeOfDrink";
             this.cbTypeOfDrink.Size = new System.Drawing.Size(237, 21);
             this.cbTypeOfDrink.TabIndex = 2;
@@ -60,7 +68,7 @@
             // lblListOfDrinks
             // 
             this.lblListOfDrinks.AutoSize = true;
-            this.lblListOfDrinks.Location = new System.Drawing.Point(12, 64);
+            this.lblListOfDrinks.Location = new System.Drawing.Point(12, 83);
             this.lblListOfDrinks.Name = "lblListOfDrinks";
             this.lblListOfDrinks.Size = new System.Drawing.Size(69, 13);
             this.lblListOfDrinks.TabIndex = 3;
@@ -68,7 +76,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 368);
+            this.btnAdd.Location = new System.Drawing.Point(12, 387);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 4;
@@ -78,7 +86,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(93, 368);
+            this.btnEdit.Location = new System.Drawing.Point(93, 387);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 5;
@@ -88,7 +96,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(174, 368);
+            this.btnDelete.Location = new System.Drawing.Point(174, 387);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 6;
@@ -99,7 +107,7 @@
             // lblDrinkInfo
             // 
             this.lblDrinkInfo.AutoSize = true;
-            this.lblDrinkInfo.Location = new System.Drawing.Point(270, 9);
+            this.lblDrinkInfo.Location = new System.Drawing.Point(270, 28);
             this.lblDrinkInfo.Name = "lblDrinkInfo";
             this.lblDrinkInfo.Size = new System.Drawing.Size(55, 13);
             this.lblDrinkInfo.TabIndex = 8;
@@ -108,7 +116,7 @@
             // lbListOfDrinks
             // 
             this.lbListOfDrinks.FormattingEnabled = true;
-            this.lbListOfDrinks.Location = new System.Drawing.Point(12, 80);
+            this.lbListOfDrinks.Location = new System.Drawing.Point(12, 99);
             this.lbListOfDrinks.Name = "lbListOfDrinks";
             this.lbListOfDrinks.Size = new System.Drawing.Size(237, 277);
             this.lbListOfDrinks.TabIndex = 9;
@@ -117,16 +125,65 @@
             // lbDrinkInfo
             // 
             this.lbDrinkInfo.FormattingEnabled = true;
-            this.lbDrinkInfo.Location = new System.Drawing.Point(273, 25);
+            this.lbDrinkInfo.Location = new System.Drawing.Point(273, 44);
             this.lbDrinkInfo.Name = "lbDrinkInfo";
             this.lbDrinkInfo.Size = new System.Drawing.Size(318, 368);
             this.lbDrinkInfo.TabIndex = 10;
+            // 
+            // menu
+            // 
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Name = "menu";
+            this.menu.Size = new System.Drawing.Size(603, 24);
+            this.menu.TabIndex = 11;
+            this.menu.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.saveToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.saveAsToolStripMenuItem.Text = "Save as";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 403);
+            this.ClientSize = new System.Drawing.Size(603, 422);
             this.Controls.Add(this.lbDrinkInfo);
             this.Controls.Add(this.lbListOfDrinks);
             this.Controls.Add(this.lblDrinkInfo);
@@ -136,11 +193,15 @@
             this.Controls.Add(this.lblListOfDrinks);
             this.Controls.Add(this.cbTypeOfDrink);
             this.Controls.Add(this.lblTypeOfDrink);
+            this.Controls.Add(this.menu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menu;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OOP Labs";
+            this.menu.ResumeLayout(false);
+            this.menu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,6 +217,13 @@
         private System.Windows.Forms.Label lblDrinkInfo;
         private System.Windows.Forms.ListBox lbListOfDrinks;
         private System.Windows.Forms.ListBox lbDrinkInfo;
+        private System.Windows.Forms.MenuStrip menu;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 

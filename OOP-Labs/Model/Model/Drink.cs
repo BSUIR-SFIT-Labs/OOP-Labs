@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Model
 {
+    [Serializable]
     public abstract class Drink
     {
         public string Name { get; set; }

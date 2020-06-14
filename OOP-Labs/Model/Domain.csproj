@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\ModelHelper.cs" />
+    <Compile Include="Helpers\SerializerHelper.cs" />
+    <Compile Include="Serializer\BinarySerializer.cs" />
+    <Compile Include="Serializer\ISerializer.cs" />
     <Compile Include="Services\ModelService.cs" />
     <Compile Include="Model\Alcoholic\Alcoholic.cs" />
     <Compile Include="Model\Alcoholic\Cognac.cs" />
