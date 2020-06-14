@@ -23,7 +23,8 @@ namespace Domain.Services
 
             Filters = new List<SerializerHelper>()
             {
-                new SerializerHelper("Binary file (*.bin)|*.bin", new BinarySerializer())
+                new SerializerHelper("Binary file (*.bin)|*.bin", new BinarySerializer()),
+                new SerializerHelper("JSON file (*.json)|*.json", new JsonSerializer())
             };
         }
 

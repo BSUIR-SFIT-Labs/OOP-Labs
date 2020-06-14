@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +48,7 @@
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Serializer\BinarySerializer.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
+    <Compile Include="Serializer\JsonSerializer.cs" />
     <Compile Include="Services\ModelService.cs" />
     <Compile Include="Model\Alcoholic\Alcoholic.cs" />
     <Compile Include="Model\Alcoholic\Cognac.cs" />
@@ -56,6 +60,8 @@
     <Compile Include="Model\NonAlcoholic\NonAlcoholic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
