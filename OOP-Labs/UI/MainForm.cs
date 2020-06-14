@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace UI
@@ -84,11 +83,9 @@ namespace UI
 
         private Form GetFormForSelectedDrink()
         {
-            const string UIAssembly = "UI.exe";
-
             var typeOfDrink = cbTypeOfDrink.SelectedItem.ToString();
 
-            var assembly = Assembly.LoadFrom(UIAssembly);
+            var assembly = GetType().Assembly;
             var form = assembly.GetTypes().FirstOrDefault(
                 type => type.IsClass
                 && type.FullName.Contains(typeOfDrink));
@@ -103,11 +100,9 @@ namespace UI
                 return null;
             }
 
-            const string UIAssembly = "UI.exe";
-
             var typeOfDrink = cbTypeOfDrink.SelectedItem.ToString();
 
-            var assembly = Assembly.LoadFrom(UIAssembly);
+            var assembly = GetType().Assembly;
             var form = assembly.GetTypes().FirstOrDefault(
                 type => type.IsClass
                 && type.FullName.Contains(typeOfDrink));

@@ -70,11 +70,11 @@
             // lblCost
             // 
             this.lblCost.AutoSize = true;
-            this.lblCost.Location = new System.Drawing.Point(74, 48);
+            this.lblCost.Location = new System.Drawing.Point(62, 48);
             this.lblCost.Name = "lblCost";
-            this.lblCost.Size = new System.Drawing.Size(31, 13);
+            this.lblCost.Size = new System.Drawing.Size(43, 13);
             this.lblCost.TabIndex = 2;
-            this.lblCost.Text = "Cost:";
+            this.lblCost.Text = "Cost($):";
             // 
             // tbCost
             // 

@@ -29,62 +29,15 @@ namespace UI.Forms
         {
             if (_drink == null)
             {
-                var juice = new Juice();
+                var juice = new Juice()
+                {
+                    Bottle = new Bottle()
+                };
 
-                juice.Name = tbName.Text;
-                try
+                if (!SetJuiceProperties(juice))
                 {
-                    juice.Cost = decimal.Parse(tbCost.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct price!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                try
-                {
-                    juice.SugarContent = float.Parse(tbSugarContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct sugar content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                juice.Fruit = tbFruit.Text;
-                try
-                {
-                    juice.JuiceContent = float.Parse(tbJuiceContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct fruit content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                try
-                {
-                    juice.PulpContent = float.Parse(tbPulpContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct pulp content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                juice.Bottle = new Bottle();
-                try
-                {
-                    juice.Bottle.Volume = int.Parse(tbVolume.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct bottle volume!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                juice.Bottle.Color = tbColor.Text;
 
                 _modelService.AddDrink(juice);
             }
@@ -92,60 +45,10 @@ namespace UI.Forms
             {
                 var juice = (Juice)_drink;
 
-                juice.Name = tbName.Text;
-                try
+                if (!SetJuiceProperties(juice))
                 {
-                    juice.Cost = decimal.Parse(tbCost.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct price!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                try
-                {
-                    juice.SugarContent = float.Parse(tbSugarContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct sugar content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                juice.Fruit = tbFruit.Text;
-                try
-                {
-                    juice.JuiceContent = float.Parse(tbJuiceContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct fruit content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                try
-                {
-                    juice.PulpContent = float.Parse(tbPulpContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct pulp content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                juice.Bottle = new Bottle();
-                try
-                {
-                    juice.Bottle.Volume = int.Parse(tbVolume.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct bottle volume!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                juice.Bottle.Color = tbColor.Text;
             }
 
             DialogResult = DialogResult.OK;
@@ -163,6 +66,66 @@ namespace UI.Forms
             tbPulpContent.Text = drinkInfo["Pulp content"];
             tbVolume.Text = drinkInfo["Bottle volume"];
             tbColor.Text = drinkInfo["Bottle color"];
+        }
+
+        private bool SetJuiceProperties(Juice juice)
+        {
+            juice.Name = tbName.Text;
+            try
+            {
+                juice.Cost = decimal.Parse(tbCost.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct price!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            try
+            {
+                juice.SugarContent = float.Parse(tbSugarContent.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct sugar content!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            juice.Fruit = tbFruit.Text;
+            try
+            {
+                juice.JuiceContent = float.Parse(tbJuiceContent.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct fruit content!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            try
+            {
+                juice.PulpContent = float.Parse(tbPulpContent.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct pulp content!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            juice.Bottle = new Bottle();
+            try
+            {
+                juice.Bottle.Volume = int.Parse(tbVolume.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct bottle volume!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            juice.Bottle.Color = tbColor.Text;
+
+            return true;
         }
     }
 }

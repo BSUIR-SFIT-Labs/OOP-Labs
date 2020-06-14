@@ -29,52 +29,15 @@ namespace UI.Forms
         {
             if (_drink == null)
             {
-                var mineralWater = new MineralWater();
+                var mineralWater = new MineralWater()
+                {
+                    Bottle = new Bottle()
+                };
 
-                mineralWater.Name = tbName.Text;
-                try
+                if (!SetMineralWaterProperties(mineralWater))
                 {
-                    mineralWater.Cost = decimal.Parse(tbCost.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct price!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                try
-                {
-                    mineralWater.SugarContent = float.Parse(tbSugarContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct sugar content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                mineralWater.WaterSource = tbWaterSource.Text;  
-                try
-                {
-                    mineralWater.Mineralization = float.Parse(tbMineralization.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct mineralization!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                mineralWater.Bottle = new Bottle();
-                try
-                {
-                    mineralWater.Bottle.Volume = int.Parse(tbVolume.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct bottle volume!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                mineralWater.Bottle.Color = tbColor.Text;
 
                 _modelService.AddDrink(mineralWater);
             }
@@ -82,50 +45,10 @@ namespace UI.Forms
             {
                 var mineralWater = (MineralWater)_drink;
 
-                mineralWater.Name = tbName.Text;
-                try
+                if (!SetMineralWaterProperties(mineralWater))
                 {
-                    mineralWater.Cost = decimal.Parse(tbCost.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct price!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                try
-                {
-                    mineralWater.SugarContent = float.Parse(tbSugarContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct sugar content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                mineralWater.WaterSource = tbWaterSource.Text;
-                try
-                {
-                    mineralWater.Mineralization = float.Parse(tbMineralization.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct mineralization!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                mineralWater.Bottle = new Bottle();
-                try
-                {
-                    mineralWater.Bottle.Volume = int.Parse(tbVolume.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct bottle volume!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                mineralWater.Bottle.Color = tbColor.Text;
             }
 
             DialogResult = DialogResult.OK;
@@ -142,6 +65,56 @@ namespace UI.Forms
             tbMineralization.Text = drinkInfo["Mineralization"];
             tbVolume.Text = drinkInfo["Bottle volume"];
             tbColor.Text = drinkInfo["Bottle color"];
+        }
+        
+        private bool SetMineralWaterProperties(MineralWater mineralWater)
+        {
+            mineralWater.Name = tbName.Text;
+            try
+            {
+                mineralWater.Cost = decimal.Parse(tbCost.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct price!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            try
+            {
+                mineralWater.SugarContent = float.Parse(tbSugarContent.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct sugar content!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            mineralWater.WaterSource = tbWaterSource.Text;
+            try
+            {
+                mineralWater.Mineralization = float.Parse(tbMineralization.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct mineralization!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            mineralWater.Bottle = new Bottle();
+            try
+            {
+                mineralWater.Bottle.Volume = int.Parse(tbVolume.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct bottle volume!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            mineralWater.Bottle.Color = tbColor.Text;
+
+            return true;
         }
     }
 }

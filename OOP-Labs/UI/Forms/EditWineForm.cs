@@ -29,53 +29,15 @@ namespace UI.Forms
         {
             if (_drink == null)
             {
-                var wine = new Wine();
+                var wine = new Wine()
+                {
+                    Bottle = new Bottle()
+                };
 
-                wine.Name = tbName.Text;
-                try
+                if (!SetWineProperties(wine))
                 {
-                    wine.Cost = decimal.Parse(tbCost.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct price!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                try
-                {
-                    wine.AlcoholContent = float.Parse(tbAlcoholContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct alcohol content!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                wine.DateOfBottling = dtpDageOfBottling.Value;
-                wine.GrapeSort = tbGrapeSort.Text;
-                try
-                {
-                    wine.VinesAge = int.Parse(tbVinesAge.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct vines age!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                wine.Bottle = new Bottle();
-                try
-                {
-                    wine.Bottle.Volume = int.Parse(tbVolume.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct bottle volume!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                wine.Bottle.Color = tbColor.Text;
 
                 _modelService.AddDrink(wine);
             }
@@ -83,50 +45,10 @@ namespace UI.Forms
             {
                 var wine = (Wine)_drink;
 
-                wine.Name = tbName.Text;
-                try
+                if (!SetWineProperties(wine))
                 {
-                    wine.Cost = decimal.Parse(tbCost.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct price!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                try
-                {
-                    wine.AlcoholContent = float.Parse(tbAlcoholContent.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct alcohol content!",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                wine.DateOfBottling = dtpDageOfBottling.Value;
-                wine.GrapeSort = tbGrapeSort.Text;
-                try
-                {
-                    wine.VinesAge = int.Parse(tbVinesAge.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct vines age!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                try
-                {
-                    wine.Bottle.Volume = int.Parse(tbVolume.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Enter the correct bottle volume!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                wine.Bottle.Color = tbColor.Text;
             }
 
             DialogResult = DialogResult.OK;
@@ -144,6 +66,56 @@ namespace UI.Forms
             tbVinesAge.Text = drinkInfo["Vines age"];
             tbVolume.Text = drinkInfo["Bottle volume"];
             tbColor.Text = drinkInfo["Bottle color"];
+        }
+
+        private bool SetWineProperties(Wine wine)
+        {
+            wine.Name = tbName.Text;
+            try
+            {
+                wine.Cost = decimal.Parse(tbCost.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct price!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            try
+            {
+                wine.AlcoholContent = float.Parse(tbAlcoholContent.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct alcohol content!",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            wine.DateOfBottling = dtpDageOfBottling.Value;
+            wine.GrapeSort = tbGrapeSort.Text;
+            try
+            {
+                wine.VinesAge = int.Parse(tbVinesAge.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct vines age!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            try
+            {
+                wine.Bottle.Volume = int.Parse(tbVolume.Text);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Enter the correct bottle volume!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            wine.Bottle.Color = tbColor.Text;
+
+            return true;
         }
     }
 }
