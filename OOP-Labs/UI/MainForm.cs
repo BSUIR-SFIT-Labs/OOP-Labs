@@ -73,9 +73,7 @@ namespace UI
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             openFileDialog.Filter = string.Join("|", _modelService.Filters.Select(f => f.Filter));
-
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {

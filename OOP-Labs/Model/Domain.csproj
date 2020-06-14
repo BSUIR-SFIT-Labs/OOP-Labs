@@ -47,6 +47,7 @@
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Serializer\BinarySerializer.cs" />
+    <Compile Include="Serializer\CustomSerializer.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
     <Compile Include="Serializer\JsonSerializer.cs" />
     <Compile Include="Services\ModelService.cs" />

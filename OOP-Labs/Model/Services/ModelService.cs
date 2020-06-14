@@ -24,7 +24,8 @@ namespace Domain.Services
             Filters = new List<SerializerHelper>()
             {
                 new SerializerHelper("Binary file (*.bin)|*.bin", new BinarySerializer()),
-                new SerializerHelper("JSON file (*.json)|*.json", new JsonSerializer())
+                new SerializerHelper("JSON file (*.json)|*.json", new JsonSerializer()),
+                new SerializerHelper("CSER file (*.cser)|*.cser", new CustomSerializer())
             };
         }
 
@@ -35,6 +36,8 @@ namespace Domain.Services
 
         public void AddDrinks(List<Drink> drinks)
         {
+            Drinks.Clear();
+
             foreach (var drink in drinks)
             {
                 Drinks.Add(drink);
