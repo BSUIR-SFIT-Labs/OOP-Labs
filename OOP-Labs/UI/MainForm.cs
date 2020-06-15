@@ -1,5 +1,6 @@
 ﻿using Domain.Helpers;
 using Domain.Model;
+using Domain.Serializer;
 using Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using UI.Forms;
 
 namespace UI
 {
@@ -73,7 +75,7 @@ namespace UI
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = string.Join("|", _modelService.Filters.Select(f => f.Filter));
+            openFileDialog.Filter = string.Join("|", _modelService.Serializers.Select(f => f.Filter));
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -82,7 +84,7 @@ namespace UI
                     try
                     {
                         _modelService.AddDrinks(_modelService
-                            .Filters[openFileDialog.FilterIndex - 1]
+                            .Serializers[openFileDialog.FilterIndex - 1]
                             .Serializator
                             .Deserialize<List<Drink>>(fileStream));
                     }
@@ -92,7 +94,7 @@ namespace UI
                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    _modelService.LastFilter = _modelService.Filters[openFileDialog.FilterIndex - 1];
+                    _modelService.LastSerializer = _modelService.Serializers[openFileDialog.FilterIndex - 1].Serializator;
                     _modelService.LastFile = openFileDialog.FileName;
                 }
 
@@ -103,19 +105,37 @@ namespace UI
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog.Filter = string.Join("|", _modelService.Filters.Select(f => f.Filter));
+            saveFileDialog.Filter = string.Join("|", _modelService.Serializers.Select(f => f.Filter));
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 _modelService.LastFile = saveFileDialog.FileName;
-                _modelService.LastFilter = _modelService.Filters[saveFileDialog.FilterIndex - 1];
+                _modelService.LastSerializer = _modelService.Serializers[saveFileDialog.FilterIndex - 1].Serializator;
+
+                if (_modelService.LastSerializer is SerializerWithPlugins)
+                {
+                    var selectPluginForm = CreateSelectPluginAndSerializerForm();
+                    if (selectPluginForm.ShowDialog() == DialogResult.OK)
+                    {
+                        var serialzier = _modelService.LastSerializer as SerializerWithPlugins;
+                        serialzier.SelectedSerializer = selectPluginForm.SelectedSerializer;
+                        serialzier.SelectedPlugin = selectPluginForm.SelectedPlugin;
+                    }
+                }
+ 
                 saveToolStripMenuItem_Click(null, null);
             }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_modelService.LastFile == null || _modelService.LastFilter == null)
+            var serializerWithPlugins = _modelService.LastSerializer as SerializerWithPlugins;
+            bool isLastPluginEmpty =
+                serializerWithPlugins != null 
+                && (serializerWithPlugins.SelectedPlugin == null 
+                || serializerWithPlugins.SelectedSerializer == null);
+
+            if (_modelService.LastFile == null || _modelService.LastSerializer == null || isLastPluginEmpty)
             {
                 saveAsToolStripMenuItem_Click(null, null);
             }
@@ -125,7 +145,7 @@ namespace UI
                 {
                     try
                     {
-                        _modelService.LastFilter.Serializator.Serialize(fileStream, _modelService.Drinks);
+                        _modelService.LastSerializer.Serialize(fileStream, _modelService.Drinks);
                     }
                     catch (Exception ex)
                     {
@@ -213,6 +233,19 @@ namespace UI
             return _modelService.Drinks.FirstOrDefault(drink =>
                 drink.GetType() == _typesOfDrink[cbTypeOfDrink.SelectedIndex]
                 && drink.Name == lbListOfDrinks.SelectedItem?.ToString());
+        }
+
+        private SelectPluginAndSerializerForm CreateSelectPluginAndSerializerForm()
+        {
+            var fileFormat = _modelService.Serializers.ToDictionary(s => (s.Filter.Split('(')[0]), s => s.Serializator);
+
+            var plugins = _modelService.Serializers
+                .Select(s => s.Serializator)
+                .OfType<SerializerWithPlugins>()
+                .Single().Plugins
+                .ToDictionary(p => p.GetType().Name.Replace("Plugin", ""), p => p);
+
+            return new SelectPluginAndSerializerForm(fileFormat, plugins);
         }
     }
 }

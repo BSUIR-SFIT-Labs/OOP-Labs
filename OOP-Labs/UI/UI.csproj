@@ -70,6 +70,12 @@
     <Compile Include="Forms\EditWineForm.Designer.cs">
       <DependentUpon>EditWineForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SelectPluginAndSerializerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectPluginAndSerializerForm.Designer.cs">
+      <DependentUpon>SelectPluginAndSerializerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditWineForm.resx">
       <DependentUpon>EditWineForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectPluginAndSerializerForm.resx">
+      <DependentUpon>SelectPluginAndSerializerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -119,6 +128,10 @@
     <ProjectReference Include="..\Model\Domain.csproj">
       <Project>{0C4C97FF-69FF-4CE1-B071-EADBB6A298C3}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugin\Plugin.csproj">
+      <Project>{726C49F5-D6A0-4920-A4CD-5AF0F0CF6B91}</Project>
+      <Name>Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

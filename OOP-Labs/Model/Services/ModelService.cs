@@ -1,8 +1,11 @@
 ﻿using Domain.Helpers;
 using Domain.Model;
 using Domain.Serializer;
+using Plugin;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Domain.Services
 {
@@ -11,9 +14,9 @@ namespace Domain.Services
     {
         public List<Drink> Drinks { get; private set; }
 
-        public List<SerializerHelper> Filters { get; set; }
+        public List<SerializerHelper> Serializers { get; set; }
 
-        public SerializerHelper LastFilter { get; set; }
+        public ISerializer LastSerializer { get; set; }
 
         public string LastFile { get; set; }
 
@@ -21,12 +24,17 @@ namespace Domain.Services
         {
             Drinks = new List<Drink>();
 
-            Filters = new List<SerializerHelper>()
+            Serializers = new List<SerializerHelper>()
             {
                 new SerializerHelper("Binary file (*.bin)|*.bin", new BinarySerializer()),
                 new SerializerHelper("JSON file (*.json)|*.json", new JsonSerializer()),
                 new SerializerHelper("CSER file (*.cser)|*.cser", new CustomSerializer())
             };
+
+            var serializersWithPlugins = LoadSerializerWithPlugins(Serializers.Select(f => f.Serializator));
+
+            Serializers.Add(new SerializerHelper("File processed by the plugin (*.fpbp)|*.fpbp",
+                serializersWithPlugins));
         }
 
         public void AddDrink(Drink drink)
@@ -42,6 +50,20 @@ namespace Domain.Services
             {
                 Drinks.Add(drink);
             }
+        }
+
+        private SerializerWithPlugins LoadSerializerWithPlugins(IEnumerable<ISerializer> serializers)
+        {
+            const string DirectoryWithPlugins = "Plugins";
+
+            var pathToPlugins = Path.Combine(Environment.CurrentDirectory, DirectoryWithPlugins);
+
+            var plugins = new List<IPlugin>(PluginLoader.LoadPlugins(pathToPlugins))
+            {
+                new EmptyPlugin()
+            };
+
+            return new SerializerWithPlugins(serializers, plugins);
         }
     }
 }
